@@ -1,0 +1,33 @@
+Deployment Steps for SentimentPulse – AWS AI Ecosystem
+
+1. Upload Model Artifact to Amazon S3
+- Go to Amazon S3.
+- Create a new bucket or use an existing one.
+- Upload the `model.tar.gz` file inside the `/model/` folder to the bucket.
+
+2. Deploy Model on Amazon SageMaker
+- Open a SageMaker Notebook instance.
+- Use the provided Jupyter Notebook (`deploy_model.ipynb`) to:
+  - Create a SageMaker Model from the uploaded artifact.
+  - Deploy it to a real-time endpoint.
+- Save the endpoint name for the next step.
+
+3. Create AWS Lambda Function
+- Go to AWS Lambda Console.
+- Create a new function from scratch.
+- Use the provided `lambda_function.py`.
+- Grant Lambda permissions to invoke SageMaker endpoint.
+- Add the endpoint name inside the Lambda code environment variables or directly in the script.
+
+4. Set Up Amazon API Gateway
+- Go to API Gateway Console.
+- Create a new REST API.
+- Create a POST method linked to the Lambda function.
+- Enable CORS if needed for frontend integration.
+
+5. Test the Ecosystem
+- Invoke the API endpoint using Postman, cURL, or a simple frontend form.
+- Verify that the API returns the sentiment prediction (e.g., "Positive" / "Negative").
+
+6. Monitor Using Amazon CloudWatch
+- Check SageMaker and Lambda logs via CloudWatch for debugging and monitoring performance.
